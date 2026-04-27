@@ -22,17 +22,14 @@ def fetch_rss_feed(source: Dict) -> List[Dict]:
         feed = feedparser.parse(source['url'])
 
         for entry in feed.entries[:10]:
-            # 提取内容
             title = entry.get('title', '')
             summary = entry.get('summary', '') or entry.get('description', '')
             link = entry.get('link', '')
             
-            # 获取时间
             published_time = None
             if hasattr(entry, 'published_parsed') and entry.published_parsed:
                 published_time = datetime(*entry.published_parsed[:6])
             
-            # 只要标题不为空就收录，不再强制过滤关键词和时间
             if title:
                 news_items.append({
                     'title': title,
@@ -104,3 +101,23 @@ def fetch_all_news() -> Dict[str, List[Dict]]:
         all_news[category] = unique[:REPORT_CONFIG['max_news_per_category']]
 
     return all_news
+
+
+# --- 补回这个缺失的函数 ---
+def format_news_for_report(news_list: List[Dict], category: str) -> str:
+    """格式化新闻为报告格式"""
+    if not news_list:
+        return f"\n**{category}**: No updates today\n\n**{category}**: 今日无更新\n\n"
+
+    category_cn = "技术进展" if category == "technology" else "市场动态"
+    category_en = "Technology Updates" if category == "technology" else "Market Dynamics"
+
+    formatted = f"\n### 📰 {category_en} / {category_cn}\n\n"
+
+    for i, news in enumerate(news_list, 1):
+        formatted += f"**{i}. {news['title']}**\n"
+        if news.get('summary'):
+            formatted += f"{news['summary'][:200]}...\n"
+        formatted += f"📌 Source: {news['source']} | 🔗 [Read More]({news['url']})\n\n"
+
+    return formatted
