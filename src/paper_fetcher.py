@@ -24,7 +24,7 @@ def fetch_arxiv_papers() -> List[Dict]:
     yesterday = today - timedelta(days=1)
 
     # 构建搜索查询 - 获取最近一天的论文
-    search_query = " AND ".join([f"cat:{cat}" for cat in ARXIV_CATEGORIES])
+    search_query = " OR ".join([f"cat:{cat}" for cat in ARXIV_CATEGORIES])
 
     try:
         # 创建搜索对象
