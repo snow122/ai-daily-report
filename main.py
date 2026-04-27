@@ -15,6 +15,10 @@ from src.scheduler import start_scheduler, run_once
 
 def main():
     """主函数"""
+    # 确保必要目录存在(必须在日志配置之前)
+    os.makedirs('logs', exist_ok=True)
+    os.makedirs('reports', exist_ok=True)
+
     # 配置日志
     logging.basicConfig(
         level=logging.INFO,
@@ -27,10 +31,6 @@ def main():
 
     logger = logging.getLogger(__name__)
     logger.info("🤖 AI Daily Report System Starting...")
-
-    # 确保必要目录存在
-    os.makedirs('logs', exist_ok=True)
-    os.makedirs('reports', exist_ok=True)
 
     # 检查命令行参数
     if len(sys.argv) > 1:
