@@ -1,130 +1,102 @@
 """
 报告生成模块
-将收集的论文和新闻整合成结构化报告
+将收集的论文和新闻整合成结构化报告和网页
 """
 
 from datetime import datetime
 from typing import Dict, List
-
+import os
 
 def generate_daily_report(papers: List[Dict], news: Dict[str, List[Dict]]) -> str:
-    """
-    生成每日AI进展报告(中英双语)
-    """
+    """生成 Markdown 格式报告"""
     today = datetime.now()
-    date_str = today.strftime('%Y年%m月%d日')
-    date_en = today.strftime('%B %d, %Y')
-
-    report = f"""# 🤖 AI Daily Report / AI领域日报
-
-**Date**: {date_en} | **日期**: {date_str}
-
----
-
-## 📊 Summary / 概览
-
-- **Papers Today / 今日论文**: {len(papers)} 篇
-- **Tech Updates / 技术动态**: {len(news.get('technology', []))} 条
-- **Market News / 市场资讯**: {len(news.get('market', []))} 条
-
----
-"""
-
-    # 第一部分:最新研究论文
-    report += "## 📚 Latest Research Papers / 最新研究论文\n\n"
-
-    if papers:
-        for paper in papers:
-            report += f"**{paper['title']}**\n\n"
-            report += f"👤 **Authors**: {', '.join(paper['authors'][:3])}\n\n"
-            abstract = paper['abstract']
-            if len(abstract) > 300: abstract = abstract[:300] + '...'
-            report += f"📝 **Abstract**:\n{abstract}\n\n"
-            report += f"🔗 [View Paper]({paper['url']}) | [PDF]({paper['pdf_url']})\n\n---\n"
-    else:
-        report += "*No new papers found today / 今日无新论文*\n\n"
-
-    # 第二部分:技术进展
-    report += "\n## 💻 Technology Updates / 技术进展\n\n"
-    tech_news = news.get('technology', [])
-    if tech_news:
-        for i, item in enumerate(tech_news, 1):
-            report += f"**{i}. {item['title']}**\n"
-            if item.get('summary'):
-                report += f"{item['summary'][:200]}...\n"
-            report += f"📌 Source: {item['source']} | 🔗 [Read More]({item['url']})\n\n"
-    else:
-        report += "*No technology updates today / 今日无技术更新*\n\n"
-
-    # 第三部分:市场动态
-    report += "\n## 📈 Market Dynamics / 市场动态\n\n"
-    market_news = news.get('market', [])
-    if market_news:
-        for i, item in enumerate(market_news, 1):
-            report += f"**{i}. {item['title']}**\n"
-            if item.get('summary'):
-                report += f"{item['summary'][:200]}...\n"
-            report += f"📌 Source: {item['source']} | 🔗 [Read More]({item['url']})\n\n"
-    else:
-        report += "*No market news today / 今日无市场资讯*\n\n"
-
-    report += f"\n---\n*Report generated at {today.strftime('%Y-%m-%d %H:%M:%S')} | 报告生成时间: {today.strftime('%Y-%m-%d %H:%M:%S')}*\n"
+    report = f"# 🤖 AI Daily Report - {today.strftime('%Y-%m-%d')}\n\n"
+    report += f"## 📚 Papers ({len(papers)})\n"
+    for p in papers:
+        report += f"- **{p['title']}**\n  - Authors: {', '.join(p['authors'][:3])}\n  - {p['url']}\n"
+    report += f"\n## 💻 Tech ({len(news.get('technology', []))})\n"
+    for n in news.get('technology', []):
+        report += f"- **{n['title']}**\n  - {n['url']}\n"
     return report
 
-
-def generate_summary_for_message(papers: List[Dict], news: Dict[str, List[Dict]]) -> str:
-    """
-    生成简短摘要(用于即时消息推送)
-    修改：直接包含标题，不再提示查看文件
-    """
-    today = datetime.now()
-    date_str = today.strftime('%Y-%m-%d')
-
-    summary = f"🤖 AI Daily Report - {date_str}\n\n"
-
-    # 论文列表
-    summary += f"📚 Latest Papers / 最新论文: {len(papers)} 篇\n"
+def generate_html_report(papers: List[Dict], news: Dict[str, List[Dict]]) -> str:
+    """生成 HTML 网页报告"""
+    today = datetime.now().strftime('%Y-%m-%d')
+    
+    # 论文 HTML
+    papers_html = ""
     if papers:
-        for i, paper in enumerate(papers[:3], 1):
-            title = paper['title']
-            if len(title) > 50: title = title[:50] + '...'
-            summary += f"  {i}. {title}\n"
+        for p in papers:
+            papers_html += f"""
+            <div class="card">
+                <h3>📄 {p['title']}</h3>
+                <p class="authors">👤 {', '.join(p['authors'][:3])}</p>
+                <p class="abstract">📝 {p['abstract'][:300]}...</p>
+                <a href="{p['url']}" target="_blank" class="btn">View Paper</a>
+                <a href="{p['pdf_url']}" target="_blank" class="btn">PDF</a>
+            </div>"""
     else:
-        summary += "  (今日暂无最新论文)\n"
+        papers_html = "<p>今日暂无最新论文</p>"
 
-    # 技术动态
-    summary += f"\n💻 Tech Updates / 技术动态: {len(news.get('technology', []))} 条\n"
-    tech_items = news.get('technology', [])
-    if tech_items:
-        for i, item in enumerate(tech_items[:3], 1):
-            title = item['title']
-            if len(title) > 50: title = title[:50] + '...'
-            summary += f"  {i}. {title}\n"
-    else:
-        summary += "  (今日暂无技术动态)\n"
+    # 新闻 HTML
+    news_html = ""
+    for item in news.get('technology', []) + news.get('market', []):
+        news_html += f"""
+        <div class="news-item">
+            <h4>🔹 {item['title']}</h4>
+            <p>{item.get('summary', '')[:150]}...</p>
+            <a href="{item['url']}" target="_blank">Read More →</a>
+        </div>"""
 
-    # 市场资讯
-    summary += f"\n📈 Market News / 市场资讯: {len(news.get('market', []))} 条\n"
-    market_items = news.get('market', [])
-    if market_items:
-        for i, item in enumerate(market_items[:3], 1):
-            title = item['title']
-            if len(title) > 50: title = title[:50] + '...'
-            summary += f"  {i}. {title}\n"
-    else:
-        summary += "  (今日暂无市场资讯)\n"
+    html = f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AI Daily Report - {today}</title>
+    <style>
+        body {{ font-family: -apple-system, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #f5f5f5; color: #333; }}
+        .header {{ background: #2563eb; color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }}
+        .card {{ background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }}
+        .btn {{ display: inline-block; padding: 5px 10px; background: #2563eb; color: white; text-decoration: none; border-radius: 4px; margin-right: 5px; font-size: 12px; }}
+        .news-item {{ background: white; padding: 10px; border-radius: 6px; margin-bottom: 10px; border-left: 4px solid #10b981; }}
+        h3 {{ margin-top: 0; }}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🤖 AI Daily Report</h1>
+        <p>Date: {today}</p>
+    </div>
+    
+    <h2>📚 Latest Papers ({len(papers)})</h2>
+    {papers_html}
+    
+    <h2>📰 News & Updates</h2>
+    {news_html}
+</body>
+</html>"""
+    return html
 
-    summary += f"\n---\n*Powered by GitHub Actions | 完整报告见上文*"
+def save_report(papers: List[Dict], news: Dict[str, List[Dict]]):
+    """保存 Markdown 和 HTML 报告"""
+    os.makedirs('public', exist_ok=True)
+    
+    # 保存 HTML 到 public 目录 (用于发布网页)
+    html_content = generate_html_report(papers, news)
+    with open('public/index.html', 'w', encoding='utf-8') as f:
+        f.write(html_content)
+        
+    return html_content
+
+def generate_summary_for_message(papers, news):
+    """生成飞书消息摘要"""
+    summary = f"🤖 AI Daily Report - {datetime.now().strftime('%Y-%m-%d')}\n\n"
+    summary += f"📚 Papers: {len(papers)} 篇\n"
+    for i, p in enumerate(papers[:3], 1):
+        summary += f"  {i}. {p['title'][:40]}...\n"
+    
+    summary += f"\n📰 News: {len(news.get('technology', [])) + len(news.get('market', []))} 条\n"
+    
+    # 添加网页链接
+    summary += f"\n🌐 **完整报告**: https://snow122.github.io/ai-daily-report/"
     return summary
-
-
-def save_report_to_file(report: str, filename: str = None) -> str:
-    """保存报告到文件"""
-    if not filename:
-        filename = f"ai_report_{datetime.now().strftime('%Y%m%d')}.md"
-    filepath = f"reports/{filename}"
-    import os
-    os.makedirs('reports', exist_ok=True)
-    with open(filepath, 'w', encoding='utf-8') as f:
-        f.write(report)
-    return filepath

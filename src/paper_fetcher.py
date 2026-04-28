@@ -29,7 +29,7 @@ def fetch_arxiv_papers() -> List[Dict]:
             sort_order=arxiv.SortOrder.Descending
         )
 
-        client = arxiv.Client()
+        client = arxiv.Client(page_size=10, num_retries=3)
         results = client.results(search)
 
         # 直接获取结果，不再严格限制日期（防止因时差或更新延迟导致0数据）
