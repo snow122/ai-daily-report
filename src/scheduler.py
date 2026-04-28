@@ -10,7 +10,7 @@ import sys
 from datetime import datetime
 from src.paper_fetcher import fetch_arxiv_papers
 from src.news_fetcher import fetch_all_news
-from src.report_generator import generate_daily_report, generate_summary_for_message, save_report_to_file
+from src.report_generator import generate_daily_report, generate_summary_for_message, save_report
 from src.notifier import send_notification
 
 logger = logging.getLogger(__name__)
@@ -43,7 +43,7 @@ def generate_and_send_report():
 
         # 步骤4: 保存报告到文件
         logger.info("步骤4: 保存报告文件...")
-        report_file = save_report_to_file(report)
+        save_report(papers, news)
         logger.info(f"报告已保存到: {report_file}")
 
         # 步骤5: 生成简短摘要
