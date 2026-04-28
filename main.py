@@ -6,12 +6,18 @@ import sys
 import os
 import logging
 
+# 添加根目录到路径
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from src.scheduler import start_scheduler, run_once
 
 def main():
-    # 配置日志
+    # 1. 【最重要】必须先创建文件夹，否则写日志会报错
+    os.makedirs('logs', exist_ok=True)
+    os.makedirs('reports', exist_ok=True)
+    os.makedirs('public', exist_ok=True)
+
+    # 2. 然后再配置日志
     logging.basicConfig(
         level=logging.INFO,
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -24,12 +30,7 @@ def main():
     logger = logging.getLogger(__name__)
     logger.info("🤖 AI Daily Report System Starting...")
 
-    # 确保必要目录存在
-    os.makedirs('logs', exist_ok=True)
-    os.makedirs('reports', exist_ok=True)
-    os.makedirs('public', exist_ok=True)
-
-    # 检查命令行参数
+    # 3. 检查命令行参数
     if len(sys.argv) > 1:
         if sys.argv[1] == '--now':
             logger.info("立即执行一次报告生成...")
