@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>AI Daily Report - 2026-05-18</title>
+    <title>AI Daily Report - 2026-05-19</title>
     <style>
         body { font-family: -apple-system, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #f5f5f5; color: #333; }
         .header { background: #2563eb; color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
@@ -15,38 +15,108 @@
 <body>
     <div class="header">
         <h1>🤖 AI Daily Report</h1>
-        <p>Date: 2026-05-18</p>
+        <p>Date: 2026-05-19</p>
     </div>
     
-    <h2>📚 Latest Papers (0)</h2>
-    <p>今日暂无最新论文</p>
+    <h2>📚 Latest Papers (10)</h2>
+    
+            <div class="card">
+                <h3>📄 Can These Views Be One Scene? Evaluating Multiview 3D Consistency when 3D Foundation Models Hallucinate</h3>
+                <p class="authors">👤 Soumava Paul, Prakhar Kaushik, Alan Yuille</p>
+                <p class="abstract">📝 Multiview 3D evaluation assumes that the images being scored are observations of one static 3D scene. This assumption can fail in NVS and sparse-view reconstruction: inputs or generated outputs may contain artifacts, outlier frames, repeated views, or noise, yet still receive high 3D consistency sco...</p>
+                <a href="http://arxiv.org/abs/2605.18754v1" target="_blank" class="btn">View Paper</a>
+                <a href="https://arxiv.org/pdf/2605.18754v1" target="_blank" class="btn">PDF</a>
+            </div>
+            <div class="card">
+                <h3>📄 DashAttention: Differentiable and Adaptive Sparse Hierarchical Attention</h3>
+                <p class="authors">👤 Yuxiang Huang, Nuno M. T. Gonçalves, Federico Alvetreti</p>
+                <p class="abstract">📝 Current hierarchical attention methods, such as NSA and InfLLMv2, select the top-k relevant key-value (KV) blocks based on coarse attention scores and subsequently apply fine-grained softmax attention on the selected tokens. However, the top-k operation assumes the number of relevant tokens for any ...</p>
+                <a href="http://arxiv.org/abs/2605.18753v1" target="_blank" class="btn">View Paper</a>
+                <a href="https://arxiv.org/pdf/2605.18753v1" target="_blank" class="btn">PDF</a>
+            </div>
+            <div class="card">
+                <h3>📄 A Readiness-Driven Runtime for Pipeline-Parallel Training under Runtime Variability</h3>
+                <p class="authors">👤 Ruitao Liu, Xinyang Tian, Shuo Chen</p>
+                <p class="abstract">📝 Pipeline parallelism is a key technique for scaling large-model training, but modern workloads exhibit runtime variability in computation and communication. Existing pipeline systems typically consume static, profiled, or adaptively generated schedules as pre-committed execution orders. When realize...</p>
+                <a href="http://arxiv.org/abs/2605.18750v1" target="_blank" class="btn">View Paper</a>
+                <a href="https://arxiv.org/pdf/2605.18750v1" target="_blank" class="btn">PDF</a>
+            </div>
+            <div class="card">
+                <h3>📄 WavFlow: Audio Generation in Waveform Space</h3>
+                <p class="authors">👤 Feiyan Zhou, Luyuan Wang, Shoufa Chen</p>
+                <p class="abstract">📝 Modern audio generation predominantly relies on latent-space compression, introducing additional complexity and potential information loss. In this work, we challenge this paradigm with WavFlow, a framework that generates high-fidelity audio directly in raw waveform space without intermediate repres...</p>
+                <a href="http://arxiv.org/abs/2605.18749v1" target="_blank" class="btn">View Paper</a>
+                <a href="https://arxiv.org/pdf/2605.18749v1" target="_blank" class="btn">PDF</a>
+            </div>
+            <div class="card">
+                <h3>📄 Aurora: Unified Video Editing with a Tool-Using Agent</h3>
+                <p class="authors">👤 Yongsheng Yu, Ziyun Zeng, Zhiyuan Xiao</p>
+                <p class="abstract">📝 Recent video editing models have converged on a unified conditioning design: a single diffusion transformer jointly consumes text, source video, and reference images, and one set of weights covers replacement, removal, style transfer, and reference-driven insertion. The design is flexible, but it as...</p>
+                <a href="http://arxiv.org/abs/2605.18748v1" target="_blank" class="btn">View Paper</a>
+                <a href="https://arxiv.org/pdf/2605.18748v1" target="_blank" class="btn">PDF</a>
+            </div>
+            <div class="card">
+                <h3>📄 Code as Agent Harness</h3>
+                <p class="authors">👤 Xuying Ning, Katherine Tieu, Dongqi Fu</p>
+                <p class="abstract">📝 Recent large language models (LLMs) have demonstrated strong capabilities in understanding and generating code, from competitive programming to repository-level software engineering. In emerging agentic systems, code is no longer only a target output. It increasingly serves as an operational substra...</p>
+                <a href="http://arxiv.org/abs/2605.18747v1" target="_blank" class="btn">View Paper</a>
+                <a href="https://arxiv.org/pdf/2605.18747v1" target="_blank" class="btn">PDF</a>
+            </div>
+            <div class="card">
+                <h3>📄 ESI-Bench: Towards Embodied Spatial Intelligence that Closes the Perception-Action Loop</h3>
+                <p class="authors">👤 Yining Hong, Jiageng Liu, Han Yin</p>
+                <p class="abstract">📝 Spatial intelligence unfolds through a perception-action loop: agents act to acquire observations, and reason about how observations vary as a function of action. Rather than passively processing what is seen, they actively uncover what is unseen - occluded structure, dynamics, containment, and func...</p>
+                <a href="http://arxiv.org/abs/2605.18746v1" target="_blank" class="btn">View Paper</a>
+                <a href="https://arxiv.org/pdf/2605.18746v1" target="_blank" class="btn">PDF</a>
+            </div>
+            <div class="card">
+                <h3>📄 SURGE: Approximation-free Training Free Particle Filter for Diffusion Surrogate</h3>
+                <p class="authors">👤 Lifu Wei, Yinuo Ren, Naichen Shi</p>
+                <p class="abstract">📝 Diffusion-based generative models increasingly rely on inference-time guidance, adding a drift term or reweighting mixture of experts, to improve sample quality on task-specific objectives. However, most existing techniques require repeated score or gradient evaluations, introducing bias, high compu...</p>
+                <a href="http://arxiv.org/abs/2605.18745v1" target="_blank" class="btn">View Paper</a>
+                <a href="https://arxiv.org/pdf/2605.18745v1" target="_blank" class="btn">PDF</a>
+            </div>
+            <div class="card">
+                <h3>📄 Actionable World Representation</h3>
+                <p class="authors">👤 Kunqi Xu, Jitao Li, Jianglong Ye</p>
+                <p class="abstract">📝 Inspired by the emergent behaviors in large language models that generalized human intelligence, the research community is pursuing similar emergent capabilities within world models, with a emphasis on modeling the physical world. Within the scope of physical world model, objects are the fundamental...</p>
+                <a href="http://arxiv.org/abs/2605.18743v1" target="_blank" class="btn">View Paper</a>
+                <a href="https://arxiv.org/pdf/2605.18743v1" target="_blank" class="btn">PDF</a>
+            </div>
+            <div class="card">
+                <h3>📄 Vision-OPD: Learning to See Fine Details for Multimodal LLMs via On-Policy Self-Distillation</h3>
+                <p class="authors">👤 Qianhao Yuan, Jie Lou, Xing Yu</p>
+                <p class="abstract">📝 Multimodal Large Language Models (MLLMs) still struggle with fine-grained visual understanding, where answers often depend on small but decisive evidence in the full image. We observe a regional-to-global perception gap: the same MLLM answers fine-grained questions more accurately when conditioned o...</p>
+                <a href="http://arxiv.org/abs/2605.18740v1" target="_blank" class="btn">View Paper</a>
+                <a href="https://arxiv.org/pdf/2605.18740v1" target="_blank" class="btn">PDF</a>
+            </div>
     
     <h2>📰 News & Updates</h2>
     
         <div class="news-item">
+            <h4>🔹 Here’s why Elon Musk lost his suit against OpenAI</h4>
+            <p>On Monday, the jury in Musk v. Altman dealt Elon Musk a major blow—reaching a unanimous advisory verdict that he had sued OpenAI too late and, as a re...</p>
+            <a href="https://www.technologyreview.com/2026/05/18/1137488/elon-musk-suit-openai-verdict/" target="_blank">Read More →</a>
+        </div>
+        <div class="news-item">
+            <h4>🔹 What to expect from Google this week</h4>
+            <p>This story originally appeared in The Algorithm, our weekly newsletter on AI. To get stories like this in your inbox first, sign up here. When Google ...</p>
+            <a href="https://www.technologyreview.com/2026/05/18/1137439/what-to-expect-from-google-this-week/" target="_blank">Read More →</a>
+        </div>
+        <div class="news-item">
+            <h4>🔹 Inside Anduril and Meta’s quest to make smart glasses for warfare</h4>
+            <p>The defense-tech company Anduril has shared new details about the augmented-reality headset for the military it’s prototyping with Meta, including a v...</p>
+            <a href="https://www.technologyreview.com/2026/05/18/1137412/inside-anduril-and-metas-quest-to-make-smart-glasses-for-warfare/" target="_blank">Read More →</a>
+        </div>
+        <div class="news-item">
             <h4>🔹 Musk v. Altman week 3: Elon Musk and Sam Altman traded blows over each other’s credibility. Now the jury will pick a side.</h4>
-            <p>In the final week of the Musk v. Altman trial, lawyers traded blows over Elon Musk’s and OpenAI CEO Sam Altman’s credibility. Altman was grilled on hi...</p>
+            <p>Update: On Monday May 18, the jury sided with OpenAI, delivering an advisory verdict finding that Musk&#8217;s claims are barred by the statute of lim...</p>
             <a href="https://www.technologyreview.com/2026/05/15/1137357/musk-v-altman-week-3/" target="_blank">Read More →</a>
         </div>
         <div class="news-item">
             <h4>🔹 How Chinese short dramas became AI content machines</h4>
             <p>In a dimly lit bedroom, a frightened young woman is thrown onto a bed by a tall, muscular man. He grabs her hand, and flame-like vines crawl across he...</p>
             <a href="https://www.technologyreview.com/2026/05/15/1137326/chinese-short-dramas-ai/" target="_blank">Read More →</a>
-        </div>
-        <div class="news-item">
-            <h4>🔹 Data readiness for agentic AI in financial services</h4>
-            <p>Financial services companies have unique needs when it comes to business AI. They operate in one of the most highly regulated sectors while responding...</p>
-            <a href="https://www.technologyreview.com/2026/05/14/1137034/data-readiness-for-agentic-ai-in-financial-services/" target="_blank">Read More →</a>
-        </div>
-        <div class="news-item">
-            <h4>🔹 Establishing AI and data sovereignty in the age of autonomous systems</h4>
-            <p>When generative AI first moved from research labs into real-world business applications, enterprises made a tacit bargain: “Capability now, control la...</p>
-            <a href="https://www.technologyreview.com/2026/05/14/1137168/establishing-ai-and-data-sovereignty-in-the-age-of-autonomous-systems/" target="_blank">Read More →</a>
-        </div>
-        <div class="news-item">
-            <h4>🔹 The shock of seeing your body used in deepfake porn</h4>
-            <p>When Jennifer got a job doing research for a nonprofit in 2023, she ran her new professional headshot through a facial recognition program. She wanted...</p>
-            <a href="https://www.technologyreview.com/2026/05/14/1137161/ai-porn-nonconsensual-deepfakes-takedown-piracy-copyright/" target="_blank">Read More →</a>
         </div>
 </body>
 </html>
